@@ -33,7 +33,7 @@ Después de descargar *PHP* + *Composer* + *Instalador de Laravel* + *Postgres* 
 laravel new nombre-del-proyecto
 ```
 
-Posteriomnete configurarlo en el proyecto:
+Posteriormente configurarlo en el proyecto:
 
 ```bash
 DB_CONNECTION=pgsql
@@ -47,5 +47,18 @@ DB_PASSWORD=tu_contraseña_segura
 Con el siguiente comando se puede crear el sevidor local y observar el primer proyecto.
 ```bash
 php artisan serve
+```
+
+> [!NOTE]
+> Aqui tuve algunso inconvenientes por la base de datos. Cada vez que se cambie el archivo y quiera vovler a reiniciar correctamnete el servidor use una limpieza de cache.
+
+```bash
+php artisan config:clear
+php artisan cache:clear
+
+```
+Luego se hizo una prueba de migracione sy todo correcto ;)
+```bash
+php artisan migrate
 ```
 

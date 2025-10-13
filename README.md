@@ -50,7 +50,7 @@ php artisan serve
 ```
 
 > [!NOTE]
-> Aqui tuve algunso inconvenientes por la base de datos. Cada vez que se cambie el archivo y quiera vovler a reiniciar correctamnete el servidor use una limpieza de cache.
+> Aqui tuve algunos inconvenientes por la base de datos. Cada vez que se cambie el archivo y quiera volver a reiniciar correctamente el servidor use una limpieza de caché.
 
 ```bash
 php artisan config:clear

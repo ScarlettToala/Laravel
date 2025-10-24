@@ -60,3 +60,97 @@ Entonces para usarlo en la ruta se debe poner algo asi:
 Route::get('/', [HomeController::class, 'index']);
 ```
 Poneos el nombre del metodo 
+
+Si un controladoroclase solo tiene 1 metodo se le puede llamar __invoke() eso hara que cuando llamemos la clase accede a su único método.  
+
+----
+
+## Crear las vistas 
+Se hace en Resources -> carpeta views 
+
+Cuando queires ingresar auna vista desde el controlador se hace asi:
+
+```bash
+class HomeController extends Controller
+{
+    public function index(){
+        return view('home');
+    }
+}
+
+```
++ ruta.
+* LA función view lo que esta declarando es que buscas un vista(En la carpeta) con el nombre home.
+
+  En caso de que en un controler yo qusiera usar un parametro y pasarlo a la vista se haría de la siguiente forma en el controller:
+  ```bash
+   public function show($post)
+    {
+        return view('posts.show', [
+            'post' => $post
+        ]);
+    }
+  //Hay otra forma más de añadir la varibale con
+      return view('posts.show', compact('post'));
+
+
+```
+
+
+En el hmtl se coloca
+```bash
+    <h1>Aqui se mostrará el post <?= $post?></h1>
+```
+
+Los ficheros de vsiaulización que son home.blade.php trbaja con platilla eso nos permite.
+
+Poner el contendip de la varible asi 
+```bash
+<h1>Aqui se mostrará el post {{$post}}></h1>
+```
+
+También nos permite o siguiente:
+```bash
+    @if(true)<!--Muestra solo si existe una varible-->
+    <p>Contenido de prueba</p>
+    @endif
+```
+
+## Condicionales en el HTML
+```bash
+    @if ()
+        
+    @else
+        
+    @endif
+----
+
+    @switch($type)
+        @case(1)
+            
+            @break
+        @case(2)
+            
+            @break
+        @default
+            
+    @endswitch
+```
+
+En caso de que queira escribir codigo php tmabien sepuede hacer asi 
+```bash
+    @php
+        
+    @endphp
+
+```
+
+## Bucles
+
+```bash
+
+    @foreach ($collection as $item)
+        
+    @endforeach
+```
+

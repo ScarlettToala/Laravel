@@ -1,7 +1,7 @@
 > [!NOTE]
 > Finalmente use XAMPP para el entorno, por lo tanto use php y mysql 
 
-##Extensiones:
+## Extensiones:
 * Laravel Blade formatter
 * Laravel Blade Snippets (Autocompletado)
 * Laravel goto view (Ver codigo de referencia)
@@ -153,4 +153,135 @@ En caso de que queira escribir codigo php tmabien sepuede hacer asi
         
     @endforeach
 ```
+----
+# Componentes Anónimos
+## TailwindCSS
+En el curso se presenta es  tailwindcss y como dentro de las etiquetas se puede crear componentes pra el HTML. 
+Dentro de la carpeta views -> components y colocar alert.blade.php 
+PAra que se viera debería ponerse en el html así
+```bash
+    <x-alert>
+{{--         <x-slot name='title'>
+            titulo de alerta
+        </x-slot> --}}
+        Contenido de la alerta
+    </x-alert>
+```
 
+alert.blade.php
+```bash
+<div class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-300">
+    <!--<span class="font-medium">Info Alert!</span>{{$slot}} <!--Esto es para que pueda mandar un mensaje variable-->
+
+    <span class="font-medium">{{$title ?? 'Info alert'}}</span>{{$slot}} <!-- Otro titulo, Esto es para que pueda mandar un mensaje variable--> 
+
+</div>
+```
+
+Se puede poner atributos para poner diferentes alertas.
+
+
+> [!NOTE]
+> Se puede hacer con variables y cmabiar lo que espera recibir en los componentes.
+
+alert.blade.php
+```bash
+@props(['type' => 'info'])<!--Es para recibir el valor y poner una cindcional múltiple, es recomendable poenr un valor po defecto-->
+
+@php
+    switch ($type) {
+        case 'info':
+            $class = 'text-blue-800 bg-blue-300';
+            break;
+
+        case 'danger':
+            $class = 'text-red-800 bg-red-300';
+            break;
+
+        case 'success':
+            $class = 'text-green-800 bg-green-300';
+            break;
+
+        case 'warning':
+            $class = 'text-yellow-800 bg-yellow-300';
+            break;
+
+        default:
+            $class = 'text-orange-800 bg-orange-300';
+            break;
+    }
+@endphp
+
+<div class="p-4 mb-4 text-sm rounded-lg {{ $class }}">
+    <span class="font-medium">{{ $title ?? 'Info alert' }}</span>
+    {{ $slot }}
+</div>
+
+```
+
+Y en HTML se verya solo esto 
+```bash
+<x-alert type="warning">
+```
+
+## Componentes de clases (Dependientes)
+Se puede crear con un comando... Elcomando crea 2 archivos. dentro de app -> view/Components/alert2.php y el componente de alert2.blade.php
+```bash
+php artisan make:component alert2
+```
+
+Sobre el html se veria asi 
+´´´bash
+        <x-alert2 type="info">
+            <x-slot name='title'>
+                titulo de alerta
+            </x-slot> 
+            Contenido de la alerta
+        </x-alert2>
+´´´
+Y sobre el controles en Alert2.php
+´´´bash
+class Alert2 extends Component
+{
+    /**
+     * Create a new component instance.
+     */
+    public $class; /*Definición dela variable*/
+
+    public function __construct($type = 'info')
+    {
+
+        switch ($type) {
+            case 'info':
+                $class = 'text-blue-800 bg-blue-300';
+                break;
+
+            case 'danger':
+                $class = 'text-red-800 bg-red-300';
+                break;
+
+            case 'success':
+                $class = 'text-green-800 bg-green-300';
+                break;
+
+            case 'warning':
+                $class = 'text-yellow-800 bg-yellow-300';
+                break;
+
+            default:
+                $class = 'text-orange-800 bg-orange-300';
+                break;
+
+        }
+        $this->class = $class;
+    }
+´´´
+
+y en alert2.blade.php
+```bash
+<div class="p-4 mb-4 text-sm rounded-lg {{ $class }}">
+    <span class="font-medium">{{ $title ?? 'Info alert' }}</span>
+    {{ $slot }}
+</div>
+
+```

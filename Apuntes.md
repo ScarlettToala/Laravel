@@ -285,3 +285,108 @@ y en alert2.blade.php
 </div>
 
 ```
+
+
+### Trabajar con plantillas
+
+* Se puede trabajar con componentes como vimos en las anteriores apuntes
+
+Lo que se hace es los fragmentos qu eosn iguales en las paginas se estabezca en un componente y que este tnega una variable, para difernecia el contenido.
+
+ #### Ejemplo  Componente.blade.php
+
+```bash
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laravel 12</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <header></header>
+        {{$slot}}
+    <footer></footer>
+</body>
+</html>
+```
+
+ #### Ejemplo HTML -> home.blade.php
+
+```bash
+<x-app-layout>
+    <div class='max-w-4x1 mx-auto px-4'>
+        <h1>Bienvenido a la pagina principal home.blade.php</h1>
+
+        <x-alert2 type="info">
+            <x-slot name='title'>
+                titulo de alerta
+            </x-slot> 
+            Contenido de la alerta
+        </x-alert2>
+    </div>
+</x-app-layout>
+```
+* plantillas extens
+
+ #### Ejemplo  views/layouts/app.blade.php
+
+```bash
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Tambien se le puede establecer un valor por defecto-->
+    <title>@yield('title', 'Laravel 11')</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body>
+
+    <header></header>
+        @yield('content')
+    <footer></footer>
+</body>
+
+</html>
+```
+
+ #### Ejemplo HTML -> home.blade.php
+
+```bash
+@extends('layouts.app')
+
+@section('content')
+        <div class='max-w-4x1 mx-auto px-4'>
+        <h1>Bienvenido a la pagina principal home.blade.php</h1>
+
+        <x-alert2 type="info">
+            <x-slot name='title'>
+                titulo de alerta
+            </x-slot> 
+            Contenido de la alerta
+        </x-alert2>
+    </div>
+@endsection
+
+<!--Cambio de varibale en los titulos-->
+@section('title')
+Prueba Laravel
+@endsection
+<!--Tambien se le puede establecer un valor por defecto-->
+```
+
+En este cado tabien se puede utilizar @stack y @push y esto es para poner variabilidad. Link [https://www.youtube.com/watch?v=LawiwA-SlJ8&list=PLZ2ovOgdI-kVtF2yQ2kiZetWWTmOQoUSG&index=8];
+
+----
+# Base de datos 
+En mi caso utilizo Datagrid para crearlo 
+-> MySql 
+
+<img width="633" height="292" alt="image" src="https://github.com/user-attachments/assets/c7078143-ae01-4513-b586-1972813942f7" />
+
+
+
